@@ -5,98 +5,19 @@ import '../widgets/section_header.dart';
 import 'product_detail_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final List<Product> _saleProducts;
+  final List<Product> _newProducts;
+  final List<Product> _recommendedProducts;
+
+  const HomePage({
+    super.key,
+    required List<Product> saleProducts,
+    required List<Product> newProducts,
+    required List<Product> recommendedProducts
+  }) : _newProducts = newProducts, _saleProducts = saleProducts, _recommendedProducts = recommendedProducts;
 
   @override
-  Widget build(BuildContext context) {
-    // Picsum URLs used so images always load without local assets
-    final saleProducts = [
-      Product(
-        title: 'Evening Dress',
-        brand: 'Dorothy Perkins',
-        image: 'https://picsum.photos/seed/dress1/400/600',
-        price: 12,
-        oldPrice: 15,
-        discount: 20,
-      ),
-      Product(
-        title: 'Sport Dress',
-        brand: 'Sitlly',
-        image: 'https://picsum.photos/seed/dress2/400/600',
-        price: 19,
-        oldPrice: 22,
-        discount: 15,
-      ),
-      Product(
-        title: 'Leather Jacket',
-        brand: 'Zara',
-        image: 'https://picsum.photos/seed/jacket1/400/600',
-        price: 55,
-        oldPrice: 70,
-        discount: 21,
-      ),
-      Product(
-        title: 'Summer Skirt',
-        brand: 'H&M',
-        image: 'https://picsum.photos/seed/skirt1/400/600',
-        price: 17,
-        oldPrice: 21,
-        discount: 10,
-      ),
-      Product(
-        title: 'Casual Blouse',
-        brand: 'Reserved',
-        image: 'https://picsum.photos/seed/blouse1/400/600',
-        price: 22,
-        oldPrice: 0,
-      ),
-    ];
-
-    final newProducts = [
-      Product(
-        title: 'Red Dress',
-        brand: 'Mango',
-        image: 'https://picsum.photos/seed/new1/400/600',
-        price: 20,
-        isNew: true,
-      ),
-      Product(
-        title: 'White T-Shirt',
-        brand: 'Mango Boy',
-        image: 'https://picsum.photos/seed/new2/400/600',
-        price: 10,
-        isNew: true,
-      ),
-      Product(
-        title: 'Casual Hoodie',
-        brand: 'Uniqlo',
-        image: 'https://picsum.photos/seed/hoodie1/400/600',
-        price: 25,
-        isNew: true,
-      ),
-      Product(
-        title: 'Jeans Jacket',
-        brand: 'Levi\'s',
-        image: 'https://picsum.photos/seed/jeans1/400/600',
-        price: 35,
-        isNew: true,
-      ),
-      Product(
-        title: 'Striped Blouse',
-        brand: 'Reserved',
-        image: 'https://picsum.photos/seed/striped1/400/600',
-        price: 22,
-        isNew: true,
-      ),
-      Product(
-        title: 'Boho Dress',
-        brand: 'Zara',
-        image: 'https://picsum.photos/seed/boho1/400/600',
-        price: 28,
-        isNew: true,
-      ),
-    ];
-
+  Widget build(BuildContext context) {  
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -124,13 +45,13 @@ class HomePage extends StatelessWidget {
                     height: 270,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: saleProducts.length,
+                      itemCount: _saleProducts.length,
                       itemBuilder: (context, index) => ProductCard(
-                        product: saleProducts[index],
+                        product: _saleProducts[index],
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ProductDetailPage(product: saleProducts[index]),
+                            builder: (_) => ProductDetailPage(product: _saleProducts[index], recommendedProducts: _recommendedProducts),
                           ),
                         ),
                       ),
@@ -144,13 +65,13 @@ class HomePage extends StatelessWidget {
                     height: 270,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: newProducts.length,
+                      itemCount: _newProducts.length,
                       itemBuilder: (context, index) => ProductCard(
-                        product: newProducts[index],
+                        product: _newProducts[index],
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ProductDetailPage(product: newProducts[index]),
+                            builder: (_) => ProductDetailPage(product: _newProducts[index], recommendedProducts: _recommendedProducts,),
                           ),
                         ),
                       ),
@@ -165,13 +86,13 @@ class HomePage extends StatelessWidget {
                     height: 270,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: saleProducts.length,
+                      itemCount: _saleProducts.length,
                       itemBuilder: (context, index) => ProductCard(
-                        product: saleProducts[(index + 1) % saleProducts.length],
+                        product: _saleProducts[(index + 1) % _saleProducts.length],
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ProductDetailPage(product: saleProducts[(index + 1) % saleProducts.length]),
+                            builder: (_) => ProductDetailPage(product: _saleProducts[(index + 1) % _saleProducts.length], recommendedProducts: _recommendedProducts),
                           ),
                         ),
                       ),

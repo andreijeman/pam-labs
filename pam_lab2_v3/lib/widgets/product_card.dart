@@ -7,11 +7,11 @@ class ProductCard extends StatelessWidget {
   final double width;
 
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
     required this.onTap,
     this.width = 160,
-  }) : super(key: key);
+  });
 
   Widget _buildImage() {
     if (product.image.startsWith('http')) {

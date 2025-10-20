@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 import 'theme.dart';
+import 'data/mock_products.dart';
 
 void main() {
   runApp(const StreetClothesApp());
@@ -15,7 +16,11 @@ class StreetClothesApp extends StatelessWidget {
       title: 'Street Clothes',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const HomePage(),
+      home: HomePage(
+        saleProducts: saleProductsMock,
+        newProducts: newProductsMock,
+        recommendedProducts: recommendedProducts,
+      ),
     );
   }
 }

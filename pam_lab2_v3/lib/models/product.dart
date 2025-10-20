@@ -7,7 +7,7 @@ class Product {
   final double? discount;
   final bool isNew;
 
-  Product({
+  const Product({
     required this.title,
     required this.brand,
     required this.image,

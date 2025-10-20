@@ -4,7 +4,13 @@ import '../widgets/product_card.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
-  const ProductDetailPage({Key? key, required this.product}) : super(key: key);
+  final List<Product> recommendedProducts; // injected from parent
+
+  const ProductDetailPage({
+    super.key,
+    required this.product,
+    required this.recommendedProducts, 
+  });
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -16,21 +22,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   String _selectedSize = 'M';
   String _selectedColor = 'Black';
 
-  // sample recommendations (network placeholders so app runs without assets)
-  late final List<Product> recommendations = List.generate(6, (i) {
-    final isNew = i % 3 == 0;
-    final discount = i % 4 == 0 ? 20.0 : null;
-    return Product(
-      title: i % 2 == 0 ? 'Evening Dress' : 'T-Shirt Sailing',
-      brand: i % 2 == 0 ? 'Dorothy Perkins' : 'Mango Boy',
-      image: 'https://picsum.photos/seed/reco$i/300/400',
-      price: i % 2 == 0 ? 12 : 10,
-      oldPrice: i % 4 == 0 ? (i % 2 == 0 ? 15 : 12) : null,
-      discount: discount,
-      isNew: isNew,
-    );
-  });
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -38,7 +29,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _imageCarousel() {
-    // If product.image is a comma-separated list you could split here; using single image for simplicity.
     return SizedBox(
       height: 340,
       child: Stack(
@@ -48,11 +38,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             onPageChanged: (idx) => setState(() => _currentPage = idx),
             itemCount: 2,
             itemBuilder: (context, index) {
-              final image = index == 0 ? widget.product.image : 'https://picsum.photos/seed/alt${index}/600/800';
+              final image = index == 0
+                  ? widget.product.image
+                  : 'https://picsum.photos/seed/alt$index/600/800';
               if (image.startsWith('http')) {
-                return Image.network(image, fit: BoxFit.cover, width: double.infinity);
+                return Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                );
               } else {
-                return Image.asset(image, fit: BoxFit.cover, width: double.infinity);
+                return Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                );
               }
             },
           ),
@@ -127,7 +127,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: DropdownButton<String>(
                 isExpanded: true,
                 value: _selectedSize,
-                items: ['S', 'M', 'L', 'XL'].map((s) => DropdownMenuItem(value: s, child: Text('Size: $s'))).toList(),
+                items: ['S', 'M', 'L', 'XL']
+                    .map((s) => DropdownMenuItem(value: s, child: Text('Size: $s')))
+                    .toList(),
                 onChanged: (v) => setState(() => _selectedSize = v ?? _selectedSize),
               ),
             ),
@@ -146,7 +148,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: DropdownButton<String>(
                 isExpanded: true,
                 value: _selectedColor,
-                items: ['Black', 'White', 'Red'].map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
+                items: ['Black', 'White', 'Red']
+                    .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                    .toList(),
                 onChanged: (v) => setState(() => _selectedColor = v ?? _selectedColor),
               ),
             ),
@@ -156,9 +160,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         Container(
           height: 48,
           width: 48,
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: [
-            BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
-          ]),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: const [
+              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
+            ],
+          ),
           child: IconButton(
             icon: const Icon(Icons.favorite_border),
             onPressed: () {},
@@ -180,7 +188,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
             elevation: 6,
           ),
-          child: const Text('ADD TO CART', style: TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.w600)),
+          child: const Text(
+            'ADD TO CART',
+            style: TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.w600),
+          ),
         ),
         const SizedBox(height: 12),
         // Home indicator (iOS-like)
@@ -214,6 +225,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _recommendations() {
+    final recos = widget.recommendedProducts;
+
+    // Hide the entire section if nothing to show.
+    if (recos.isEmpty) return const SizedBox.shrink();
+
+    final countLabel = '${recos.length} item${recos.length == 1 ? '' : 's'}';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -223,8 +241,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('You can also like this', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text('12 items', style: TextStyle(color: Colors.grey.shade600)),
+              const Text('You can also like this',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(countLabel, style: TextStyle(color: Colors.grey.shade600)),
             ],
           ),
         ),
@@ -234,16 +253,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 0),
             scrollDirection: Axis.horizontal,
-            itemCount: recommendations.length,
+            itemCount: recos.length,
             itemBuilder: (context, idx) {
-              final p = recommendations[idx];
+              final p = recos[idx];
               return ProductCard(
                 product: p,
                 width: 160,
                 onTap: () {
+                  // Navigate to the tapped recommendation; keep passing the injected list.
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (_) => ProductDetailPage(product: p)),
+                    MaterialPageRoute(
+                      builder: (_) => ProductDetailPage(
+                        product: p,
+                        recommendedProducts: recos,
+                      ),
+                    ),
                   );
                 },
               );
@@ -278,15 +303,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             Row(
               children: [
                 if (p.oldPrice != null)
-                  Text('\$${p.oldPrice!.toStringAsFixed(0)}',
-                      style: const TextStyle(color: Colors.grey, decoration: TextDecoration.lineThrough)),
+                  Text(
+                    '\$${p.oldPrice!.toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
                 if (p.oldPrice != null) const SizedBox(width: 8),
-                Text('\$${p.price.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 20, color: Colors.redAccent, fontWeight: FontWeight.bold)),
+                Text(
+                  '\$${p.price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const Spacer(),
                 Row(
                   children: [
-                    Icon(Icons.star, color: Colors.amber, size: 18),
+                    const Icon(Icons.star, color: Colors.amber, size: 18),
                     const SizedBox(width: 6),
                     Text('(10)', style: TextStyle(color: Colors.grey.shade600)),
                   ],
@@ -303,7 +339,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             _addToCartButton(),
             // Shipping info / Support
             _infoList(),
-            // Recommendations
+            // Recommendations (injected)
             _recommendations(),
             const SizedBox(height: 24),
           ],
