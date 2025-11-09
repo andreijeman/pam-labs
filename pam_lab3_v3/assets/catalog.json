@@ -1,0 +1,89 @@
+{
+  "header": {
+    "title": "Street clothes",
+    "bannerImage": "https://img.pikbest.com/templates/20240715/urban-street-wear-apparel-banner-template-_10669353.jpg!w700wp"
+  },
+  "sections": [
+    {
+      "title": "Sale",
+      "subtitle": "Super summer sale",
+      "items": [
+        {
+          "id": 1,
+          "brand": "Dorothy Perkins",
+          "name": "Evening Dress",
+          "image": "https://www.thedressoutlet.com/cdn/shop/files/43172_1.jpg?v=1731945128",
+          "oldPrice": 15,
+          "newPrice": 12,
+          "discount": 20,
+          "rating": 4.8,
+          "reviews": 10,
+          "isFavorite": false
+        },
+        {
+          "id": 2,
+          "brand": "Sitlly",
+          "name": "Sport Dress",
+          "image": "https://www.inheritco.com/cdn/shop/files/simona-midi-sport-dress-ff-dresses-gray-xs-32144532176983.jpg?v=1747492540&width=2343",
+          "oldPrice": 22,
+          "newPrice": 19,
+          "discount": 15,
+          "rating": 4.7,
+          "reviews": 10,
+          "isFavorite": true
+        },
+        {
+          "id": 3,
+          "brand": "Dorothy Perkins",
+          "name": "Sport Dress (Grey)",
+          "image": "https://thumbs.dreamstime.com/b/gorgeous-female-brunette-model-white-clothes-portrait-posing-fashion-studio-147311462.jpg",
+          "oldPrice": 14,
+          "newPrice": 11,
+          "discount": 21,
+          "rating": 4.9,
+          "reviews": 12,
+          "isFavorite": false
+        }
+      ]
+    },
+    {
+      "title": "New",
+      "subtitle": "You’ve never seen it before!",
+      "items": [
+        {
+          "id": 4,
+          "brand": "TopShop",
+          "name": "Striped Dress",
+          "image": "https://media.istockphoto.com/id/1299986822/photo/the-bigger-the-hat-the-bigger-the-dreams.jpg?s=612x612&w=0&k=20&c=ebHD1lQbqtj-3RpfR_2ScUo1YHiVIQlDK3AXQjGBmu8=",
+          "price": 24,
+          "isNew": true,
+          "rating": 4.6,
+          "reviews": 8,
+          "isFavorite": false
+        },
+        {
+          "id": 5,
+          "brand": "H&M",
+          "name": "Graphic T-Shirt",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW5GkZGin9DFIOaRa9mhXlJaYgVVxo5MEw1Q&s",
+          "price": 18,
+          "isNew": true,
+          "rating": 4.4,
+          "reviews": 6,
+          "isFavorite": true
+        },
+        {
+          "id": 6,
+          "brand": "Zara",
+          "name": "Casual Hoodie",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpQdb2YAWS35DVS0l0qOTbQW4nJebnelKt8A&s",
+          "price": 32,
+          "isNew": true,
+          "rating": 4.9,
+          "reviews": 15,
+          "isFavorite": false
+        }
+      ]
+    }
+  ]
+}

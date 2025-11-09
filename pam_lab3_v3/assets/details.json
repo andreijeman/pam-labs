@@ -1,0 +1,79 @@
+{
+  "product": {
+    "id": "hm_short_dress_black_01",
+    "title": "Short dress",
+    "brand": "H&M",
+    "description": "Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed neckline.",
+    "price": 19.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewsCount": 10,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#000000",
+        "images": [
+          "https://m.media-amazon.com/images/I/61XEByJmCWL._AC_UY1000_.jpg",
+          "https://m.media-amazon.com/images/I/61RyJkertYL._AC_UY1000_.jpg",
+          "https://m.media-amazon.com/images/I/71de94am0xL._AC_UY350_.jpg",
+          "https://m.media-amazon.com/images/I/61EJgqp3LpL._AC_UY350_.jpg"
+        ]
+      },
+      {
+        "name": "Beige",
+        "hex": "#F5F5DC",
+        "images": [
+          "https://media.istockphoto.com/id/1338764011/photo/happy-african-american-woman-smiling-elegant-girl-party-style-fashionable-mini-dress.jpg?s=612x612&w=0&k=20&c=UyH9fXRGXo61RWGCyczADkZvW5lc-W2HRBkYjgM2-ps="
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "shippingInfo": {
+      "delivery": "Standard delivery in 2-5 business days.",
+      "returns": "Free returns within 30 days."
+    },
+    "support": {
+      "contactEmail": "support@hm.com",
+      "faqUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjBZZT4yzA1bpXnKkXvJMY44VOBf72cVSLnA&s"
+    },
+    "actions": {
+      "addToCart": true,
+      "addToWishlist": true,
+      "share": true
+    }
+  },
+  "relatedProducts": [
+    {
+      "id": "evening_dress_01",
+      "title": "Evening Dress",
+      "brand": "Dorothy Perkins",
+      "price": 12,
+      "oldPrice": 15,
+      "currency": "USD",
+      "discount": "-20%",
+      "rating": 4.7,
+      "reviewsCount": 10,
+      "image": "https://images.unsplash.com/photo-1611042553484-d61f84d22784?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZmFzaGlvbiUyMG1vZGVsfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"
+    },
+    {
+      "id": "tshirt_sailing_01",
+      "title": "T-Shirt Sailing",
+      "brand": "Mango Boy",
+      "price": 10,
+      "currency": "USD",
+      "rating": 0,
+      "reviewsCount": 0,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8LM5rncsV_-tNFWSPZS9E_mn3-sx929U_cQ&s"
+    },
+    {
+      "id": "tshirt_graphic_01",
+      "title": "T-Shirt Graphic",
+      "brand": "Mango Boy",
+      "price": 10,
+      "currency": "USD",
+      "rating": 0,
+      "reviewsCount": 0,
+      "image": "https://www.shutterstock.com/image-photo/girl-beige-jacket-fashion-on-600nw-1736127683.jpg"
+    }
+  ]
+}
