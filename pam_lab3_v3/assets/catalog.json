@@ -84,6 +84,45 @@
           "isFavorite": false
         }
       ]
+    },
+     {
+      "title": "TEST",
+      "subtitle": "You’ve never seen it before!",
+      "items": [
+        {
+          "id": 4,
+          "brand": "TopShop",
+          "name": "Striped Dress",
+          "image": "https://media.istockphoto.com/id/1299986822/photo/the-bigger-the-hat-the-bigger-the-dreams.jpg?s=612x612&w=0&k=20&c=ebHD1lQbqtj-3RpfR_2ScUo1YHiVIQlDK3AXQjGBmu8=",
+          "price": 24,
+          "isNew": true,
+          "rating": 4.6,
+          "reviews": 8,
+          "isFavorite": false
+        },
+        {
+          "id": 5,
+          "brand": "H&M",
+          "name": "Graphic T-Shirt",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW5GkZGin9DFIOaRa9mhXlJaYgVVxo5MEw1Q&s",
+          "price": 18,
+          "isNew": true,
+          "rating": 4.4,
+          "reviews": 6,
+          "isFavorite": true
+        },
+        {
+          "id": 6,
+          "brand": "Zara",
+          "name": "Casual Hoodie",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpQdb2YAWS35DVS0l0qOTbQW4nJebnelKt8A&s",
+          "price": 32,
+          "isNew": true,
+          "rating": 4.9,
+          "reviews": 15,
+          "isFavorite": false
+        }
+      ]
     }
   ]
 }

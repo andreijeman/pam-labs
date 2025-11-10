@@ -29,20 +29,9 @@ class HomePage extends StatelessWidget {
             return const Center(child: Text('No data found'));
           }
 
-          final sale = catalog.sections.firstWhere(
-            (s) => s.title.toLowerCase() == 'sale',
-            orElse: () => catalog.sections.first,
-          );
-          final news = catalog.sections.firstWhere(
-            (s) => s.title.toLowerCase() == 'new',
-            orElse: () => catalog.sections.last,
-          );
-
-          // Simple “recommended”: all products minus duplicates from "Sale" first item
-          final List<Product> recommended = [
-            ...sale.items,
-            ...news.items,
-          ];
+          // Optional: build a flat list of all products (used for recommendations/navigation)
+          final List<Product> allProducts =
+              catalog.sections.expand((s) => s.items).toList();
 
           return CustomScrollView(
             slivers: [
@@ -58,86 +47,48 @@ class HomePage extends StatelessWidget {
                 ),
               ),
 
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SectionHeader(title: sale.title, subtitle: sale.subtitle),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 270,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: sale.items.length,
-                          itemBuilder: (context, index) => ProductCard(
-                            product: sale.items[index],
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ProductDetailPage(
-                                  product: sale.items[index],
-                                  recommendedProducts: recommended,
-                                ),
-                              ),
-                            ),
-                          ),
+              // 🔁 Render every section from JSON
+              ...catalog.sections.map(
+                (section) => SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SectionHeader(
+                          title: section.title,
+                          subtitle: section.subtitle,
                         ),
-                      ),
-
-                      const SizedBox(height: 24),
-                      SectionHeader(title: news.title, subtitle: news.subtitle),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 270,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: news.items.length,
-                          itemBuilder: (context, index) => ProductCard(
-                            product: news.items[index],
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ProductDetailPage(
-                                  product: news.items[index],
-                                  recommendedProducts: recommended,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-                      SectionHeader(title: 'Recommended', subtitle: 'Picked for you'),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 270,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: recommended.length,
-                          itemBuilder: (context, index) {
-                            final p = recommended[index];
-                            return ProductCard(
-                              product: p,
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => ProductDetailPage(
-                                    product: p,
-                                    recommendedProducts: recommended,
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          height: 270,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: section.items.length,
+                            itemBuilder: (context, index) {
+                              final p = section.items[index];
+                              return ProductCard(
+                                product: p,
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ProductDetailPage(
+                                      product: p,
+                                      recommendedProducts: allProducts,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
+
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
             ],
           );
         },
